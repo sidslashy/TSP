@@ -1,6 +1,6 @@
 var cities = [];
-var NUM_CITIES = 10;
-var POPULATION_SIZE = 300;
+var NUM_CITIES = 14;
+var POPULATION_SIZE = 500;
 var minDistance = Infinity;
 var bestPath;
 
@@ -28,7 +28,7 @@ function draw() {
   generateNext();
 
   drawCities(cities);
-  drawPath(cities,bestOrder,{r:255,g:0,b:255},3);
+  drawPath(cities,bestOrder,{r:255,g:0,b:255},1);
 
 
   //noLoop();
@@ -57,7 +57,7 @@ function draw() {
 function drawCities(a)
 {
   background(0);
-  fill(255);
+  noFill(255);
   for(var i = 0; i < a.length; i++){
     ellipse(a[i].x,a[i].y,5,5);
   }

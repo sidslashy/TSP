@@ -50,8 +50,10 @@ function generateNext()
   var newPopulation = [];
   for(var i=0; i < population.length; i++)
   {
-    var selectedOrder = pickOne(population,fitness);
-    mutate(selectedOrder);
+    var orderA = pickOne(population,fitness);
+    var orderB = pickOne(population,fitness);
+    selectedOrder = crossOver(orderA.slice(),orderB.slice());
+    mutate(selectedOrder,0.005);
     newPopulation[i] = population;
   }
 
@@ -59,9 +61,31 @@ function generateNext()
 
 }
 
-function mutate(a)
+function crossOver(orderA,orderB)
 {
-  var i = Math.floor(Math.random()*a.length);
-  var j = Math.floor(Math.random()*a.length);
-  swapArr(a,i,j);
+  var start = floor(random(orderA.length));
+  var end = floor(start+1,orderA.length);
+  var result = orderA.slice(start,end);
+  for(var i=0; i < orderB.length; i++)
+  {
+    if(!result.includes(orderB[i]))
+    {
+      result.push(orderB[i]);
+    }
+  }
+  return result;
+}
+
+
+function mutate(a,rate)
+{
+  for(var i=0; i <  NUM_CITIES; i++)
+  {
+    if(random(1) < rate)
+    {
+      var indexA = floor(random(NUM_CITIES));
+      var indexB = (indexA+1)%NUM_CITIES
+      swapArr(a,indexA,indexB);
+    }
+  }
 }
